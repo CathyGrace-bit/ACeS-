@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACeS Sync - ACLC Mandaue</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<section id="loginPage" class="page">
+
+<div class="login-container">
+
+<div class="login-left">
+
+<div class="school-logo">
+<img src="1793462687843.jpg" alt="ACLC Logo">
+</div>
+
+<h2>ACLC MANDAUE</h2>
+<h1>ACeS Sync</h1>
+
+<p class="tagline">
+Connecting Students & Administration
+</p>
+
+<p class="features">
+Secure • Efficient • Organized
+</p>
+
+<p class="copyright">
+© 2026 ACLC Mandaue
+</p>
+
+</div>
+
+<div class="login-right">
+
+<h1>Login Dashboard</h1>
+
+<p class="description">
+Access the ACeS Sync system.
+</p>
+
+<div class="login-tabs">
+
+<button class="tab active"
+onclick="showLogin('student')">
+🎓 Student Login
+</button>
+
+<button class="tab"
+onclick="showLogin('admin')">
+🛡️ Admin / Cashier
+</button>
+
+</div>
+<div id="studentLogin" class="login-form">
+
+    <h2>Student Login</h2>
+
+    <div class="form-row">
+
+    <label>Student ID</label>
+
+    <input
+    type="text"
+    id="studentId"
+    placeholder="Enter Student ID">
+
+    </div>
+
+    <div class="form-row">
+
+    <label>Full Name</label>
+
+    <input
+    type="text"
+    id="studentNameLogin"
+    placeholder="Enter Full Name">
+
+    </div>
+
+    <div class="form-row">
+
+    <label>Grade / Year</label>
+
+    <select id="studentYear">
+
+    <option value="">Select Grade / Year</option>
+    <option>Grade 11</option>
+    <option>Grade 12</option>
+    <option>1st Year</option>
+    <option>2nd Year</option>
+    <option>3rd Year</option>
+    <option>4th Year</option>
+
+    </select>
+
+    </div>
+<div class="form-row">
+
+    <label>Course</label>
+
+    <select id="studentCourseLogin">
+
+    <option value="">Select Course</option>
+    <option>BSIT</option>
+    <option>BSCS</option>
+    <option>BSBA</option>
+    <option>BSTM</option>
+
+    </select>
+
+    </div>
+
+    <div class="form-row">
+
+    <label>Section</label>
+
+    <input
+    type="text"
+    id="studentSection"
+    placeholder="Example: 3A">
+
+    </div>
+
+    <button
+    class="btn btn-dark"
+    onclick="studentLogin()">
+
+    Login as Student
+
+    </button>
+
+    <p id="studentLoginMessage"></p>
+
+    </div>
+<div id="adminLogin" class="login-form hidden">
+
+    <h2>Admin / Cashier Login</h2>
+
+    <div class="form-row">
+
+    <label>Admin ID</label>
+
+    <input
+    type="text"
+    id="adminId"
+    placeholder="Enter Admin ID">
+
+    </div>
+
+    <div class="form-row">
+
+    <label>Password</label>
+
+    <input
+    type="password"
+    id="adminPassword"
+    placeholder="Enter Password">
+
+    </div>
+
+    <button
+    class="btn btn-light"
+    onclick="adminLogin()">
+
+    Login as Admin / Cashier
+
+    </button>
+
+    <p id="adminLoginMessage"></p>
+
+    </div>
+
+    </div>
+    </div>
+    </section>
+<!-- PAYMENT VERIFICATION -->
+
+<div class="verification-box">
+
+<h2>Payment Verification</h2>
+<p>
+Review and verify student payments.
+ </p>
+                    
+ <div id="pendingPayments">
+                        
+ <p>No pending payments.</p>
+                                
+    </div>
+                                    
+    </div>
+<section id="adminPage" class="page hidden">
+
+    <div class="dashboard">
+
+    <aside class="sidebar">
+
+    <div class="sidebar-logo">
+    <img src="1793462687843.jpg" alt="ACLC">
+    </div>
+
+    <h2>ACLC Mandaue</h2>
+
+    <p>ACeS Sync • 2026-2027</p>
+
+    <nav>
+
+    <a class="active">▦ Dashboard</a>
+    <a>♙ Students</a>
+    <a>▤ Payments</a>
+    <a>▥ Permits</a>
+    <a>✓ Verification</a>
+    <a>▥ Reports</a>
+
+    </nav>
+
+    <div class="version">
+    ACeS Sync<br>
+    v2026.27
+    </div>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+    <header class="topbar">
+
+    <div>
+
+    <h1>Admin Dashboard</h1>
+
+    <p>
+    ACLC Mandaue • 2026-2027
+    </p>
+
+    </div>
+
+    <div class="admin-user">
+
+    <strong>Admin / Cashier</strong>
+
+    <small>Administrator</small>
+    <button
+          class="logout-button"
+          onclick="logout()">
+
+          Logout
+    </button>     
+    </div>
+
+    </header>
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+    <span>👥</span>
+
+    <p>Total Students</p>
+
+    <h2 id="totalStudents">0</h2>
+
+    <small>Enrolled students</small>
+
+    </div>
+
+
+    <div class="stat-card">
+
+    <span>💵</span>
+
+    <p>Total Payments</p>
+
+    <h2 id="totalPayments">₱0</h2>
+
+    <small>Verified payments</small>
+
+    </div>
+
+
+    <div class="stat-card">
+
+    <span>📄</span>
+
+    <p>Permits Generated</p>
+
+    <h2 id="permitsCount">0</h2>
+
+    <small>Verified students</small>
+
+    </div>
+
+
+    <div class="stat-card">
+
+    <span>🧾</span>
+
+    <p>Last Permit</p>
+
+    <h2 id="lastPermit">—</h2>
+
+    <small id="lastPermitDate">
+    No permits yet
+    </small>
+
+    </div>
+
+    </div>
+<div class="admin-content">
+
+    <div class="table-box">
+
+    <h2>Student Records</h2>
+
+    <p>
+    Manage enrolled students and payments
+    </p>
+
+
+    <div class="filters">
+
+    <input
+    type="text"
+    id="searchStudent"
+    placeholder="🔎 Search Student ID or Name"
+    >
+
+    <select id="filterCourse">
+
+    <option value="">All Courses</option>
+    <option>BSIT</option>
+    <option>BSCS</option>
+    <option>BSBA</option>
+    <option>BSTM</option>
+
+    </select>
+
+
+    <select id="filterYear">
+
+    <option value="">All Grades / Years</option>
+    <option>Grade 11</option>
+    <option>Grade 12</option>
+    <option>1st Year</option>
+    <option>2nd Year</option>
+    <option>3rd Year</option>
+    <option>4th Year</option>
+
+    </select>
+
+
+    <input
+    type="text"
+    id="filterSection"
+    placeholder="Section"
+    >
+
+    </div>
+<table>
+
+    <thead>
+
+    <tr>
+    <th>Student ID</th>
+    <th>Name</th>
+    <th>Course</th>
+    <th>Year</th>
+    <th>Section</th>
+    <th>Tuition</th>
+    <th>Paid</th>
+    <th>Balance</th>
+    <th>Status</th>
+    </tr>
+
+    </thead>
+
+
+    <tbody id="adminTable">
+
+    <!-- Students will appear here automatically -->
+
+    </tbody>
+
+    </table>
+
+
+    <div
+    id="countText"
+    class="count-text">
+
+    Showing 0 students
+
+    </div>
+
+    </div>
+<div class="add-student">
+
+    <h2>Add Student</h2>
+
+    <p>Register enrolled student</p>
+
+
+    <label>Student ID</label>
+
+    <input
+    type="text"
+    id="studentID"
+    placeholder="Example: ACLC-2026-001"
+    >
+
+
+    <label>Full Name</label>
+
+    <input
+    type="text"
+    id="studentName"
+    placeholder="Student full name"
+    >
+
+
+    <label>Grade / Year</label>
+
+    <select id="studentGrade">
+
+    <option value="">Select Grade / Year</option>
+    <option>Grade 11</option>
+    <option>Grade 12</option>
+    <option>1st Year</option>
+    <option>2nd Year</option>
+    <option>3rd Year</option>
+    <option>4th Year</option>
+
+    </select>
+
+
+    <label>Course</label>
+
+    <select id="studentCourse">
+
+    <option value="">Select Course</option>
+    <option>BSIT</option>
+    <option>BSCS</option>
+    <option>BSBA</option>
+    <option>BSTM</option>
+
+    </select>
+
+
+    <label>Section</label>
+
+    <input
+    type="text"
+    id="studentSectionAdmin"
+    placeholder="Example: 3A"
+    >
+<label>Tuition Exact</label>
+
+<input
+type="number"
+id="tuitionExact"
+placeholder="Example: 40000"
+min="0"
+>
+
+
+<label>Scholar / Honor Discount (%)</label>
+
+<input
+type="number"
+id="discountPercent"
+placeholder="Example: 20"
+min="0"
+max="100"
+value="0"
+>
+
+
+<label>Initial Payment</label>
+
+<input
+type="number"
+id="paidExact"
+placeholder="Example: 5000"
+min="0"
+value="0"
+>
+
+
+<div class="student-preview">
+
+<p>Discounted Tuition</p>
+
+<strong id="discountedTuition">
+₱0.00
+</strong>
+
+
+<p>Remaining Balance</p>
+
+<strong id="initialBalance">
+₱0.00
+</strong>
+
+</div>
+
+
+<div class="button-group">
+
+<button
+id="addStudentBtn"
+class="gold-button"
+onclick="addStudent()">
+
++ Add Student
+
+</button>
+
+
+<button
+id="clearBtn"
+class="white-button"
+onclick="clearStudentForm()">
+
+Clear Form
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+<section id="studentPage" class="page hidden">
+
+    <header class="student-header">
+
+    <div>
+
+    <strong>ACLC</strong>
+
+    <span>
+    ACLC Mandaue • ACeS Sync
+    </span>
+
+    </div>
+
+    <span>
+    Academic Year 2026-2027
+    </span>
+
+    <button
+     class="logout-button"
+     onclick="logout ()"></button>
+
+    </header>
+
+
+    <div class="student-grid">
+
+
+    <!-- STUDENT INFORMATION -->
+
+    <div class="student-card">
+
+    <div
+    class="avatar"
+    id="studentAvatar">
+    ST
+    </div>
+
+    <h2 id="displayStudentName">
+    Student Name
+    </h2>
+
+    <p id="displayStudentCourse">
+    Course
+    </p>
+
+    <hr>
+
+
+    <div class="student-info">
+
+    <div>
+
+    <small>Student ID</small>
+
+    <strong id="displayStudentId">
+    —
+    </strong>
+
+    </div>
+
+
+    <div>
+
+    <small>Year</small>
+
+    <strong id="displayStudentYear">
+    —
+    </strong>
+
+    </div>
+
+
+    <div>
+
+    <small>Section</small>
+
+    <strong id="displayStudentSection">
+    —
+    </strong>
+
+    </div>
+
+    </div>
+
+
+    <span class="status">
+    Enrolled • Student
+    </span>
+
+    </div>
+<div class="student-card">
+
+    <h2>💰 Tuition Balance</h2>
+
+
+    <p>Original Tuition</p>
+
+    <h2 id="studentTuition">
+    ₱0.00
+    </h2>
+
+
+    <p>Scholar / Honor Discount</p>
+
+    <h3 id="studentDiscount">
+    0%
+    </h3>
+
+
+    <p>Tuition After Discount</p>
+
+    <h3 id="studentDiscountedTuition">
+    ₱0.00
+    </h3>
+
+
+    <p>Paid Exact</p>
+
+    <h2
+    class="paid"
+    id="studentPaid">
+
+    ₱0.00
+
+    </h2>
+
+
+    <p>Balance (Kulang)</p>
+
+    <h2
+    class="balance"
+    id="studentBalance">
+
+    ₱0.00
+
+    </h2>
+
+
+    <div class="progress">
+
+    <div
+    id="paymentProgress">
+    </div>
+
+    </div>
+
+
+    <p>Payment Status</p>
+
+    <strong id="paymentStatus">
+    No Payment
+    </strong>
+
+    </div>
+<div class="student-card">
+
+    <h2>📄 Submit Payment</h2>
+
+    <p>
+    After paying through the ACLC digital bank,
+    enter your payment details below.
+    </p>
+
+
+    <label>Reference Number</label>
+
+    <input
+    type="text"
+    id="paymentReference"
+    placeholder="Enter reference number"
+    >
+
+
+    <label>Amount Paid</label>
+
+    <input
+    type="number"
+    id="paymentAmount"
+    placeholder="Enter amount"
+    min="1"
+    >
+
+
+    <label>Payment Method</label>
+
+    <select id="paymentMethod">
+
+    <option value="Digital Bank">
+    Digital Bank
+    </option>
+
+    <option value="Cashier">
+    Cashier
+    </option>
+
+    </select>
+
+
+    <button
+    class="gold-button"
+    onclick="submitPayment()">
+
+    Submit for Verification
+
+    </button>
+
+
+    <p
+    id="paymentMessage"
+    class="payment-message">
+    </p>
+
+    </div>
+<div class="student-card permit-card">
+
+    <h2>🎓 Exam Permit</h2>
+
+    <p>Permit Status</p>
+
+    <h3 id="permitStatus">
+    Not Yet Generated
+    </h3>
+
+
+    <p>Permit Number</p>
+
+    <h2 id="studentPermit">
+    —
+    </h2>
+
+
+    <p id="permitNote">
+    Your permit will be generated
+    after payment verification.
+    </p>
+
+    </div>
+
+
+    <div class="timeline">
+
+    <h2>Payment History</h2>
+
+    <div
+    id="paymentHistory"
+    class="timeline-grid">
+
+    <!-- Payment records appear here -->
+
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+    </body>
+
+    </html>
